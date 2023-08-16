@@ -12,8 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^5.1.1",
     "commander": "^11.0.0",
     "fp-ts": "^2.16.1",
+    "prisma": "^5.1.1",
     "typescript": "^5.1.6"
   },
   "devDependencies": {
