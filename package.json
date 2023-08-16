@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "bin": {
+    "fp-cli": "./dist/bin.js"
+  },
   "scripts": {
     "dev": "node -r esbuild-register src/index.ts",
-    "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js",
+    "build": "esbuild --bundle src/bin.ts --platform=node --outfile=dist/bin.js --packages=external",
     "test": "vitest --run"
   },
   "keywords": [],
