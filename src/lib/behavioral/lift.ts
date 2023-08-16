@@ -8,10 +8,9 @@ import { mapLeft } from 'fp-ts/lib/Either'
  * @note useful for multiple validations maping
  */
 
-export default function lift<E, A>(check: (...a: A[]) => E.Either<E, A>) {
-  return (...a: A[]): E.Either<NonEmptyArray<E>, A> =>
+export default <E, A>(check: (...a: A[]) => E.Either<E, A>) =>
+  (...a: A[]): E.Either<NonEmptyArray<E>, A> =>
     pipe(
       check(...a),
       mapLeft(a => [a]),
     )
-}
