@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@changesets/cli": "^2.26.2",
     "@prisma/client": "^5.1.1",
     "commander": "^11.0.0",
     "fp-ts": "^2.16.1",
