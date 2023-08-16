@@ -1,8 +1,12 @@
 import isemail from 'isemail'
 import { Either, left, right } from 'fp-ts/lib/Either'
 import { NonEmptyArray } from 'fp-ts/lib/NonEmptyArray'
+import { sequenceT } from 'fp-ts/lib/Apply'
+import { pipe } from 'fp-ts/lib/function'
+import { map } from 'fp-ts/lib/Either'
 import lift from './behavioral/lift'
 import { ERROR } from './constant'
+import applicativeValidation from './behavioral/applicative'
 
 /* ↠ LOCAL NEEDED VALUES ↞ */
 
@@ -52,11 +56,15 @@ const equalV = lift(equal)
 /* ↠ VALIDATORS ↞ */
 
 /**
- * @description TODO
+ * @description validate a password using severals functions and stack errors as array
  */
-
-export const vPassword = () => {}
-
+export const vPassword = (s: string, confirmedPassword: string): Either<NonEmptyArray<string>, string> => {
+  return pipe(
+    sequenceT(applicativeValidation)(equalV(s, confirmedPassword), minLengthV(s), oneCapitalV(s), oneNumberV(s)),
+    // if there is no fold returning the good password
+    map(() => s),
+  )
+}
 /**
  * @description validate an email and stack errors as array
  */

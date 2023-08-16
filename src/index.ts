@@ -1,6 +1,7 @@
 import { pipe } from 'fp-ts/lib/function'
 import * as A from 'fp-ts/lib/Array'
 import * as IO from 'fp-ts/lib/IO'
+import { vPassword } from './lib/validation'
 
 const inputStrings: string[] = ['Hello', 'world', 'from', 'fp-ts!']
 
@@ -10,9 +11,8 @@ const capitalizeFirstLetter: (str: string) => string = str => str.charAt(0).toUp
 
 const addExclamation: (str: string) => string = str => str + '!'
 
-const main: IO.IO<void> = () =>
-  pipe(inputStrings, A.map(capitalizeFirstLetter), joinStrings, addExclamation, result => {
-    console.log(result)
-  })
+const main: IO.IO<void> = () => {
+  console.log(vPassword('Qwerty1!', 'Qwerty1!'))
+}
 
 main()
