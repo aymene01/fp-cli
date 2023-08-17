@@ -15,7 +15,11 @@
       "skipLibCheck": true,
       "noUncheckedIndexedAccess": true,
       "forceConsistentCasingInFileNames": true,
-      "moduleResolution": "node16"
+      "moduleResolution": "node16",
+      "baseUrl": "./src",
+      "paths": {
+        "@/lib/*": ["lib/*"]
+      }
     },
     "include": [
         "src"
