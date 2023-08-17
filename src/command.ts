@@ -40,6 +40,6 @@ program.command('register').action(async () => {
   console.log(
     isSuccess(result)
       ? `Registration successful: ${result.right.user.email}`
-      : `Registration failed: ${result?.left?.message}`,
+      : `Registration failed: ${result.left.message}`,
   )
 })
