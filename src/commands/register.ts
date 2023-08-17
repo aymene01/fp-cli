@@ -1,4 +1,4 @@
-import { User, PrismaClient } from '@prisma/client'
+import { User } from '@prisma/client/'
 import * as TE from 'fp-ts/lib/TaskEither'
 import { pipe } from 'fp-ts/lib/function'
 import { sequenceT } from 'fp-ts/lib/Apply'
@@ -9,7 +9,6 @@ import prisma from '@/lib/prisma'
 import { ERROR } from '@/lib/constant'
 import { generateJsonWebToken } from '@/lib/auth'
 import replyWithError from '@/lib/response/replyWithError'
-import { Either } from 'fp-ts/lib/Either'
 
 type AuthenticationTuple = [string, string]
 
