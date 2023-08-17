@@ -6,6 +6,11 @@ import { pipe } from 'fp-ts/function'
 
 import { ERROR } from './constant'
 
+type Payload = {
+  uuid: string
+  email: string
+}
+
 export const createPassword = (password: string): TE.TaskEither<Error, string> => {
   return TE.tryCatch(
     async () => {
@@ -37,7 +42,7 @@ export const checkToken = (decoded: any): TE.TaskEither<Error, string> => {
   return TE.right(decoded.uuid)
 }
 
-export const generateJsonWebToken = ({ uuid, email }: any): string => {
+export const generateJsonWebToken = ({ uuid, email }: Payload): string => {
   const payload = { uuid, email }
   return jwt.sign(payload, process.env.JWT_ENCRYPTION || 'secret')
 }
