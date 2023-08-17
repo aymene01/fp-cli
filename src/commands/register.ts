@@ -9,10 +9,11 @@ import prisma from '@/lib/prisma'
 import { ERROR } from '@/lib/constant'
 import { generateJsonWebToken } from '@/lib/auth'
 import replyWithError from '@/lib/response/replyWithError'
+import { Either } from 'fp-ts/lib/Either'
 
 type AuthenticationTuple = [string, string]
 
-export const createUser = (prisma: PrismaClient, [email, password]: AuthenticationTuple): TE.TaskEither<any, User> =>
+export const createUser = ([email, password]: AuthenticationTuple): TE.TaskEither<any, User> =>
   pipe(
     createPassword(password),
     TE.chain(encryptedPassword =>
@@ -24,7 +25,7 @@ export const createUser = (prisma: PrismaClient, [email, password]: Authenticati
               password: encryptedPassword,
             },
           }),
-        reason => reason as any,
+        reason => reason,
       ),
     ),
   )
@@ -35,14 +36,14 @@ type RegisterCmd = {
   passwordConfirmation: string
 }
 
-export const register = ({ email, password, passwordConfirmation }: RegisterCmd) =>
+export const register = ({ email, password, passwordConfirmation }: RegisterCmd): TE.TaskEither<Error, any> =>
   pipe(
     TE.fromEither(sequenceT(applicativeValidation)(vEmail(email), vPassword(password, passwordConfirmation))),
     TE.fold(
       details => replyWithError({ message: ERROR.VALIDATION.USER.WRONG, details }),
       input =>
         pipe(
-          createUser(prisma, input),
+          createUser(input),
           TE.fold(
             ({ message, code, meta }) => replyWithError({ message, code, meta }),
             user => {

@@ -1,5 +1,6 @@
 import { Command } from 'commander'
 import { register } from './commands/register'
+import { isSuccess } from './lib/isSuccess'
 
 export const program = new Command()
 
@@ -23,9 +24,9 @@ program
       passwordConfirmation,
     })()
 
-    if (result._tag === 'Right') {
-      console.log(result.right)
-    } else {
-      console.log(result.left.message)
-    }
+    console.log(
+      isSuccess(result)
+        ? `Registration successful: ${result.right.user.email}`
+        : `Registration failed: ${result?.left?.message}`,
+    )
   })

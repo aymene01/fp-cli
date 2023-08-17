@@ -1,10 +1,8 @@
 import { PrismaClient, User, Prisma } from '@prisma/client'
 import * as TE from 'fp-ts/lib/TaskEither'
+import prisma from './prisma'
 
-export const findUser = (
-  prisma: PrismaClient,
-  where: Prisma.UserWhereUniqueInput,
-): TE.TaskEither<Error, User | null> => {
+export const findUser = (where: Prisma.UserWhereUniqueInput): TE.TaskEither<Error, User | null> => {
   return TE.tryCatch(
     async () =>
       prisma.user.findUnique({
