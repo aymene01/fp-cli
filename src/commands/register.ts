@@ -45,11 +45,7 @@ export const register = ({ email, password, passwordConfirmation }: RegisterCmd)
           createUser(input),
           TE.fold(
             ({ message, code, meta }) => replyWithError({ message, code, meta }),
-            user => {
-              const { uuid, email } = user
-              const token = generateJsonWebToken({ uuid, email })
-              return TE.right({ user, meta: { token } })
-            },
+            user => TE.right({ user }),
           ),
         ),
     ),

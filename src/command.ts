@@ -2,6 +2,7 @@ import { Command } from 'commander'
 import { register } from './commands/register'
 import { isSuccess } from './lib/isSuccess'
 import { input } from '@inquirer/prompts'
+import password from '@inquirer/password'
 
 export const program = new Command()
 
@@ -29,8 +30,8 @@ program.command('register').action(async () => {
     passwordConfirmation: '',
   }
 
-  for (const prompt of prompts) {
-    responses[prompt.key] = await input(prompt)
+  for (const { key, message } of prompts) {
+    responses[key] = key.startsWith('pass') ? await password({ message }) : await input({ message })
   }
 
   const result = await register({
