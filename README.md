@@ -25,7 +25,8 @@ The app supports authentication for user access. Users will be prompted to log i
 ## Dependencies
 
 - [fp-ts](https://github.com/gcanti/fp-ts)
-- [readline](https://nodejs.org/api/readline.html)
+- [commander](https://github.com/tj/commander.js)
+- [inquirer](https://github.com/SBoudrias/Inquirer.js)
 
 ## Contributing
 
